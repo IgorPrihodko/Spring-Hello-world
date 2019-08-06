@@ -23,17 +23,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	EmployeeDao employeeDao;
 
+	@Override
 	public Employee getEmployee(Long id) {
 		logger.debug("Getting employee with id " + id);
 		return employeeDao.findById(id);
 	}
 
-	/**
-	 * Add new employee
-	 * 
-	 * @param employee:
-	 *            Employee to add
-	 */
 	@Override
 	@Transactional(readOnly = false)
 	public void addNewEmployee(Employee employee) {
