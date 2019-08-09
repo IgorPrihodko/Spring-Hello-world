@@ -1,4 +1,4 @@
-package com.bytestree.config;
+package com.prykhodko.shop.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages={"com.bytestree.controller"})
+@ComponentScan(basePackages={"com.prykhodko.shop.controller"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean

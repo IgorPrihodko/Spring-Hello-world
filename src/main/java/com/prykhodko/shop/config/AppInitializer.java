@@ -1,4 +1,4 @@
-package com.bytestree.config;
+package com.prykhodko.shop.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

@@ -1,4 +1,4 @@
-package com.bytestree.config;
+package com.prykhodko.shop.config;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
@@ -21,8 +21,8 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource(value = { "classpath:application.properties" })
 @ComponentScans(value = {
-		@ComponentScan("com.bytestree.dao"),
-		@ComponentScan("com.bytestree.service")
+		@ComponentScan("com.prykhodko.shop.dao"),
+		@ComponentScan("com.prykhodko.shop.service")
 })
 public class RootConfig {
 
@@ -67,7 +67,7 @@ public class RootConfig {
 	public LocalSessionFactoryBean getSessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 		sessionFactory.setDataSource(getDataSource());
-		sessionFactory.setPackagesToScan("com.bytestree.model");
+		sessionFactory.setPackagesToScan("com.prykhodko.shop.model");
 		sessionFactory.setHibernateProperties(getHibernateProperties());
 		return sessionFactory;
 	}
