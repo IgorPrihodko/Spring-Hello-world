@@ -3,4 +3,5 @@ target
 .classpath
 .project
 .idea
-.iml
+*.iml
+spring4-hibernate5-example.iml
