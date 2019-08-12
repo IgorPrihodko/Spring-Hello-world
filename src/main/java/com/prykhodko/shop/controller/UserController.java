@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
-@SessionAttributes({"user", "basket", "wrong"})
+@SessionAttributes({"user", "basket"})
 public class UserController {
 
     private static final Logger logger = Logger.getLogger(UserController.class);
@@ -51,8 +51,6 @@ public class UserController {
                     if (optionalUser.get().getRole().equals("admin")) {
                         return "redirect:users";
                     } else {
-                        Basket basket = new Basket(optionalUser.get());
-                        modelMap.addAttribute("basket", basket);
                         return "redirect:account";
                     }
                 } else {
@@ -70,7 +68,9 @@ public class UserController {
     }
 
     @GetMapping("/account")
-    public String userAccount() {
+    public String userAccount(@ModelAttribute(value = "success") String success, ModelMap modelMap) {
+        Basket basket = new Basket((User) modelMap.get("user"));
+        modelMap.addAttribute("basket", basket);
         return "account";
     }
 

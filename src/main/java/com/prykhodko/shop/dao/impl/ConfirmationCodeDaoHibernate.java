@@ -28,7 +28,7 @@ public class ConfirmationCodeDaoHibernate implements ConfirmationCodeDao {
     public void addConfirmationCode(ConfirmationCode confirmationCode) {
         Session session = sessionFactory.getCurrentSession();
         session.save(confirmationCode);
-        logger.warn("Added new confirm code " + confirmationCode);
+        logger.info("Added new confirm code " + confirmationCode);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ConfirmationCodeDaoHibernate implements ConfirmationCodeDao {
         Session session = sessionFactory.getCurrentSession();
         ConfirmationCode confirmationCode = session.byId(ConfirmationCode.class).load(id);
         session.delete(confirmationCode);
-        logger.warn("deleted confirm code " + id);
+        logger.info("deleted confirm code " + id);
     }
 
     @Override

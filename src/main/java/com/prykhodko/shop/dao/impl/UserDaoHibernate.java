@@ -28,7 +28,7 @@ public class UserDaoHibernate implements UserDao {
     public void addUser(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.save(user);
-        logger.warn("added new user " + user);
+        logger.info("added new user " + user);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class UserDaoHibernate implements UserDao {
         Session session = sessionFactory.getCurrentSession();
         User user = session.byId(User.class).load(id);
         session.delete(user);
-        logger.warn("deleted user " + id);
+        logger.info("deleted user " + id);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UserDaoHibernate implements UserDao {
         userFromDB.setPassword(user.getPassword());
         userFromDB.setRole(user.getRole());
         session.flush();
-        logger.warn("updated user " + id );
+        logger.info("updated user " + id );
     }
 
     @Override

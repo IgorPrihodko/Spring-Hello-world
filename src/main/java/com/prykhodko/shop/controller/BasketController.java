@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/user")
-@SessionAttributes({"user", "basket"})
+@SessionAttributes({"basket", "totalPrice"})
 public class BasketController {
 
     private static final Logger logger = Logger.getLogger(BasketController.class);
@@ -36,8 +36,8 @@ public class BasketController {
     }
 
     @GetMapping("/basket")
-    public String getBasket(@ModelAttribute(value = "basket") Basket basket,
-                            ModelMap modelMap) {
+    public String getBasket(ModelMap modelMap) {
+        Basket basket = (Basket) modelMap.get("basket");
         modelMap.addAttribute("basket", basket);
         modelMap.addAttribute("totalPrice", basket.getTotalPrice());
         return "basket";
@@ -48,8 +48,9 @@ public class BasketController {
                               @RequestParam("id") Long id,
                               ModelMap modelMap) {
         Product product = productService.getById(id).get();
+        TotalPriceCounter counter = new TotalPriceCounter(productService);
         basket.addProductToBasket(product);
-        basket.setTotalPrice(TotalPriceCounter.count(basket));
+        basket.setTotalPrice(counter.count(basket));
         modelMap.addAttribute("basket", basket);
         modelMap.addAttribute("totalPrice", basket.getTotalPrice());
         return "redirect:products";
@@ -60,8 +61,9 @@ public class BasketController {
                                    @RequestParam("id") Long id,
                                    ModelMap modelMap) {
         Product product = productService.getById(id).get();
+        TotalPriceCounter counter = new TotalPriceCounter(productService);
         basket.deleteProductFromBasket(product);
-        basket.setTotalPrice(TotalPriceCounter.count(basket));
+        basket.setTotalPrice(counter.count(basket));
         modelMap.addAttribute("basket", basket);
         modelMap.addAttribute("totalPrice", basket.getTotalPrice());
         return "redirect:basket";

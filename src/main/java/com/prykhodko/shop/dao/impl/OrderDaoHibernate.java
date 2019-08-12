@@ -27,7 +27,7 @@ public class OrderDaoHibernate implements OrderDao {
     public void addOrder(StockOnOrder stockOnOrder) {
         Session session = sessionFactory.getCurrentSession();
         session.save(stockOnOrder);
-        logger.warn("added new order " + stockOnOrder);
+        logger.info("added new order " + stockOnOrder);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class OrderDaoHibernate implements OrderDao {
         Session session = sessionFactory.getCurrentSession();
         StockOnOrder order = session.byId(StockOnOrder.class).load(id);
         session.delete(order);
-        logger.warn("deleted order " + id);
+        logger.info("deleted order " + id);
     }
 
     @Override

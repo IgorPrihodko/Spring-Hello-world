@@ -26,14 +26,12 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    @Transactional
     public void addBasket(Basket basket) {
         basketDao.addBasket(basket);
         logger.info("Added basket " + basket);
     }
 
     @Override
-    @Transactional
     public void removeBasket(Long id) {
         basketDao.removeBasket(id);
         logger.info("Deleted basket with id " + id);

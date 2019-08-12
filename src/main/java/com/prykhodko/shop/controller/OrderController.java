@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/user")
-@SessionAttributes({"user", "basket", "totalPrice", "wrong"})
+@SessionAttributes({"user", "basket"})
 public class OrderController {
 
     private static final Logger logger = Logger.getLogger(OrderController.class);
@@ -43,6 +43,7 @@ public class OrderController {
     @GetMapping("/order")
     public String getOrder(@ModelAttribute(value = "user") User user,
                            @ModelAttribute(value = "basket") Basket basket,
+                           @ModelAttribute(value = "wrong") String wrong,
                            ModelMap modelMap) {
         if (basket == null || basket.getProductsInBasket().isEmpty()) {
             modelMap.addAttribute("totalPrice", BigDecimal.ZERO);
@@ -67,41 +68,26 @@ public class OrderController {
             modelMap.addAttribute("wrong", "Wrong! Empty fields");
             return "redirect:order";
         }
-        return "redirect:saveOrder";
-    }
-
-    @PostMapping("/saveOrder")
-    public String saveOrder(@ModelAttribute(value = "user") User user,
-                            @ModelAttribute(value = "basket") Basket basket,
-                            @ModelAttribute(value = "order") StockOnOrder stockOnOrder,
-                            @ModelAttribute(value = "name") String name,
-                            @ModelAttribute(value = "surname") String surname,
-                            @ModelAttribute(value = "address") String address,
-                            @ModelAttribute(value = "code") String code,
-                            ModelMap modelMap) {
-        ConfirmationCode confirmationCode = basket.getConfirmationCode();
+        User userFromSession = (User) modelMap.get("user");
+        Basket basketFromSession = (Basket) modelMap.get("basket");
+        ConfirmationCode confirmationCode = basketFromSession.getConfirmationCode();
         if (confirmationCode == null || !code.equals(confirmationCode.getCode())) {
             modelMap.addAttribute("wrong", "Wrong confirmation code! Try another");
             return "redirect:order";
         } else {
-            confirmationCode.getUser().setEmail(user.getEmail());
             confirmationCodeService.addConfirmationCode(confirmationCode);
-            ConfirmationCode codeFromDB =
-                    confirmationCodeService.getLastConfirmationCodeForUser(user).get();
-
-            basket.setConfirmationCode(codeFromDB);
-            basketService.addBasket(basket);
-            Basket basketFromDB = basketService.getLastBasketForUser(user).get();
-
-            stockOnOrder.setName(name);
-            stockOnOrder.setSurname(surname);
-            stockOnOrder.setAddress(address);
-            stockOnOrder.setBasket(basketFromDB);
-            orderService.addOrder(stockOnOrder);
+            basketService.addBasket(basketFromSession);
+            StockOnOrder order = new StockOnOrder();
+            order.setUser(userFromSession);
+            order.setUserEmail(userEmail);
+            order.setName(name);
+            order.setSurname(surname);
+            order.setAddress(address);
+            order.setBasket(basketFromSession);
+            orderService.addOrder(order);
 
             modelMap.addAttribute("success", "Successfull purchase!");
-            modelMap.addAttribute("basket", new Basket());
-            return "redirect:account";
+            return "redirect:/admin/account";
         }
     }
 }

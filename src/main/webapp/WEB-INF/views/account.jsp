@@ -13,11 +13,11 @@
         <button type="submit">All products</button>
     </form>
 </div>
-<h2 align="center">${success}</h2>
 <div align="center">
     <form action="/" method="get">
         <button type="submit">Exit</button>
     </form>
+    <h3>${success}</h3>
 </div>
 </body>
 </html>

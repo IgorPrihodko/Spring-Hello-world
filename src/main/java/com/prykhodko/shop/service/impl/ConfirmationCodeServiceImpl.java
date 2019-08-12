@@ -27,14 +27,12 @@ public class ConfirmationCodeServiceImpl implements ConfirmationCodeService {
     }
 
     @Override
-    @Transactional
     public void addConfirmationCode(ConfirmationCode confirmationCode) {
         confirmationCodeDao.addConfirmationCode(confirmationCode);
         logger.info("Added confirm code " + confirmationCode);
     }
 
     @Override
-    @Transactional
     public void removeConfirmationCode(Long id) {
         confirmationCodeDao.removeConfirmationCode(id);
         logger.info("Deleted confirm code with id " + id);

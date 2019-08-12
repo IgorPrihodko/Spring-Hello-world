@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -29,8 +31,8 @@ public class StartPageController {
         this.productService = productService;
     }
 
-    @GetMapping("/")
-    public String initStartPage(ModelMap modelMap) {
+    @PostConstruct
+    public void init() {
         if (userService.getAll().isEmpty()) {
             try {
                 User firstUserTest = new User("test@test",
@@ -56,6 +58,12 @@ public class StartPageController {
             productService.addProduct(secondProductTest);
             logger.info("Add new product " + secondProductTest + " to DB");
         }
+    }
+
+    @GetMapping("/")
+    public String initStartPage(@ModelAttribute(value = "wrong") String wrong,
+                                @ModelAttribute(value = "success") String success,
+                                ModelMap modelMap) {
         return "index";
     }
 }

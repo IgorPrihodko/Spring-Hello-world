@@ -27,7 +27,7 @@ public class ProductDaoHibernate implements ProductDao {
     public void addProduct(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.save(product);
-        logger.warn("Added new product " + product);
+        logger.info("Added new product " + product);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ProductDaoHibernate implements ProductDao {
         Session session = sessionFactory.getCurrentSession();
         Product product = session.byId(Product.class).load(id);
         session.delete(product);
-        logger.warn("deleted product " + id);
+        logger.info("deleted product " + id);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ProductDaoHibernate implements ProductDao {
         productFromDB.setTitle(product.getTitle());
         productFromDB.setDescription(product.getDescription());
         productFromDB.setPrice(product.getPrice());
-        logger.warn("updated product " + id );
+        logger.info("updated product " + id );
     }
 
     @Override

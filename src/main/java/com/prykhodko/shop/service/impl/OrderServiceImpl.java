@@ -26,14 +26,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional
     public void addOrder(StockOnOrder stockOnOrder) {
         orderDao.addOrder(stockOnOrder);
         logger.info("Added order " + stockOnOrder);
     }
 
     @Override
-    @Transactional
     public void removeOrder(Long id) {
         orderDao.removeOrder(id);
         logger.info("Deleted order with id " + id);

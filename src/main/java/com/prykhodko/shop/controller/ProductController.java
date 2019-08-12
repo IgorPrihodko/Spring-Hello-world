@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("/admin")
-@SessionAttributes("wrong")
 public class ProductController {
 
     private static final Logger logger = Logger.getLogger(ProductController.class);

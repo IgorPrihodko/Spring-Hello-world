@@ -38,6 +38,7 @@
     <form action="/user/order" method="get">
         <button type="submit">Make Order</button>
     </form>
+    <h3>${wrong}</h3>
 </div>
 </body>
 </html>

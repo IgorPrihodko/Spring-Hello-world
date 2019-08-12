@@ -28,7 +28,7 @@ public class BasketDaoHibernate implements BasketDao {
     public void addBasket(Basket basket) {
         Session session = sessionFactory.getCurrentSession();
         session.save(basket);
-        logger.warn("added new basket " + basket);
+        logger.info("added new basket " + basket);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class BasketDaoHibernate implements BasketDao {
         Session session = sessionFactory.getCurrentSession();
         Basket basket = session.byId(Basket.class).load(id);
         session.delete(basket);
-        logger.warn("deleted basket " + id);
+        logger.info("deleted basket " + id);
     }
 
     @Override
