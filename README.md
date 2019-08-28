@@ -1,10 +1,10 @@
-# Spring 4 and Hibernate 5 integration example using annotations
+# Online-shop. Spring MVC and Hibernate
 
-Example of java application showing the integration of Spring 4 and hibernate 5. It explains how to configure Hibernate 5 and Spring 4 along with transaction manager to perform database operations. All configurations are done in java classes using annotations.
+Simple online shop, without pretty views, but with good backend.
+All configurations are done in java classes using annotations.
 
 # Technology Stack
 - Spring Framework – 4.3.4.RELEASE
-- Database – HSQLDB
+- Hibernate 5
+- Database – MySQL
 - JDK 8
-
-Refer complete description at [Spring 4 and Hibernate 5 integration example](http://www.bytestree.com/hibernate/spring-4-hibernate-5-example/)
